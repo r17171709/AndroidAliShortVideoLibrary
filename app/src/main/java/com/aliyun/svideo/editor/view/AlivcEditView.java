@@ -43,13 +43,11 @@ import androidx.annotation.Nullable;
 import com.aliyun.svideo.base.Constants;
 import com.aliyun.svideo.base.UIConfigManager;
 import com.aliyun.svideo.common.utils.DensityUtils;
-import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.aliyun.svideo.common.widget.AlivcCircleLoadingDialog;
 import com.aliyun.svideo.editor.bean.AlivcEditOutputParam;
 import com.aliyun.svideo.editor.bean.AlivcTransBean;
 import com.aliyun.svideo.editor.bean.PasterRestoreBean;
 import com.aliyun.svideo.editor.editor.AbstractPasterUISimpleImpl;
-import com.aliyun.svideo.editor.editor.EditorActivity;
 import com.aliyun.svideo.editor.editor.PasterUICaptionImpl;
 import com.aliyun.svideo.editor.editor.PasterUIGifImpl;
 import com.aliyun.svideo.editor.editor.PasterUITextImpl;
@@ -653,9 +651,6 @@ public class AlivcEditView extends RelativeLayout
         mTvRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                if (FastClickUtil.isFastClickActivity(EditorActivity.class.getSimpleName())) {
-                    return;
-                }
                 mTvRight.setEnabled(false);
                 //合成方式分为两种，当前页面合成（前台页面）和其他页面合成（后台合成，这里后台并不是真正的app退到后台）
                 //前台合成如下：如果要直接合成（当前页面合成），请打开注释，参考注释代码这种方式

@@ -1,22 +1,22 @@
 package com.aliyun.svideo.editor.effects.transition;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aliyun.svideo.base.Form.I18nBean;
-import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.aliyun.svideo.common.utils.LanguageUtils;
-import com.renyu.androidalishortvideolibrary.R;
 import com.aliyun.svideo.editor.editor.EditorActivity;
 import com.aliyun.svideo.editor.effects.caption.TextDialog;
 import com.aliyun.svideo.editor.effects.control.EffectInfo;
 import com.aliyun.svideo.editor.effects.control.OnItemClickListener;
 import com.aliyun.svideo.editor.util.EditorCommon;
 import com.aliyun.svideosdk.common.struct.effect.TransitionBase;
+import com.renyu.androidalishortvideolibrary.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +42,7 @@ public class TransitionEffectAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View item = ((EditorActivity)mContext).getLayoutInflater().inflate(R.layout.alivc_editor_item_transition_effect, null);
+        View item = ((EditorActivity) mContext).getLayoutInflater().inflate(R.layout.alivc_editor_item_transition_effect, null);
 
         return new TransitionViewEffectHolder(item);
     }
@@ -50,48 +50,48 @@ public class TransitionEffectAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        TransitionViewEffectHolder effectHolder = (TransitionViewEffectHolder)holder;
+        TransitionViewEffectHolder effectHolder = (TransitionViewEffectHolder) holder;
         if (isDefault) {
 
             switch (position) {
-            case TransitionChooserView.EFFECT_NONE:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_none_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_none);
-                break;
-            case TransitionChooserView.EFFECT_UP:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_up_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_up);
-                break;
-            case TextDialog.EFFECT_DOWN:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_down_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_down);
-                break;
-            case TextDialog.EFFECT_LEFT:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_left_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_left);
-                break;
-            case TransitionChooserView.EFFECT_RIGHT:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_right_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_right);
-                break;
-            case TransitionChooserView.EFFECT_SHUTTER:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_shutter_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_shutter);
-                break;
-            case TransitionChooserView.EFFECT_FADE:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_fade_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_fade);
-                break;
-            case TransitionChooserView.EFFECT_FIVE_STAR:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_fivepointstar_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_transition_star);
-                break;
-            case TransitionChooserView.EFFECT_CIRCLE:
-                effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_circle_effect_selector);
-                effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_circle);
-                break;
-            default:
-                break;
+                case TransitionChooserView.EFFECT_NONE:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_none_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_none);
+                    break;
+                case TransitionChooserView.EFFECT_UP:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_up_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_up);
+                    break;
+                case TextDialog.EFFECT_DOWN:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_down_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_down);
+                    break;
+                case TextDialog.EFFECT_LEFT:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_left_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_left);
+                    break;
+                case TransitionChooserView.EFFECT_RIGHT:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_translate_right_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_translate_right);
+                    break;
+                case TransitionChooserView.EFFECT_SHUTTER:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_shutter_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_shutter);
+                    break;
+                case TransitionChooserView.EFFECT_FADE:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_fade_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_fade);
+                    break;
+                case TransitionChooserView.EFFECT_FIVE_STAR:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_fivepointstar_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_transition_star);
+                    break;
+                case TransitionChooserView.EFFECT_CIRCLE:
+                    effectHolder.mEffectIcon.setImageResource(R.drawable.aliyun_svideo_video_edit_transition_circle_effect_selector);
+                    effectHolder.mEffectName.setText(R.string.alivc_editor_dialog_effect_circle);
+                    break;
+                default:
+                    break;
 
             }
 
@@ -160,14 +160,11 @@ public class TransitionEffectAdapter extends RecyclerView.Adapter<RecyclerView.V
             mEffectIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (FastClickUtil.isFastClick()) {
-                        return;
-                    }
                     if (mOnItemClickListener != null) {
                         EffectInfo info = new EffectInfo();
                         int position = getAdapterPosition();
                         info.transitionType = position;
-                        if (!isDefault ) {
+                        if (!isDefault) {
                             String path = mTransitionEffectList.get(position);
                             TransitionBase transitionBase = new TransitionBase(path);
                             info.setPath(path);
@@ -187,6 +184,7 @@ public class TransitionEffectAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     /**
      * 获取滤镜名称 适配系统语言/中文或其他
+     *
      * @param path 滤镜文件目录
      * @return name
      */
@@ -212,7 +210,7 @@ public class TransitionEffectAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 int var7;
                 while ((var7 = var4.read()) != -1) {
-                    var2.append((char)var7);
+                    var2.append((char) var7);
                 }
 
                 var4.close();
