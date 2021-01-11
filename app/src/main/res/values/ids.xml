@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bnb_item_icon" type="id" />
+    <item name="bnb_item_text" type="id" />
+    <item name="bnb_item_badge" type="id" />
+
+    <item name="tag_first" type="id" />
+
+    <item name="dynamic_overlay_layout" type="id" />
+    <item name="dynamic_timeline_layout" type="id" />
+
+    <item name="qupai_overlay_content_animation" type="id" />
+    <item name="qupai_overlay_content_text" type="id" />
+    <item name="qupai_btn_edit_overlay_cancel" type="id" />
+    <item name="qupai_btn_edit_overlay_transform" type="id" />
+    <item name="qupai_btn_edit_overlay_text" type="id" />
+    <item name="qupai_btn_edit_overlay_mirror" type="id" />
+    <item name="qupai_overlay_content_frame_indiator" type="id" />
+    <item name="qupai_bg_overlay_text_label" type="id" />
+
+    <item name="timeline_overlay_tail" type="id" />
+    <item name="timeline_overlay_head" type="id" />
+    <item name="timeline_overlay_middle" type="id" />
+</resources>
