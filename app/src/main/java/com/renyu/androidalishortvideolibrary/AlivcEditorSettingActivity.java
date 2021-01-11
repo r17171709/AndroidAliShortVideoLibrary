@@ -21,8 +21,6 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.aliyun.svideo.base.AlivcSvideoEditParam;
 import com.aliyun.svideo.base.utils.FastClickUtil;
-import com.aliyun.svideo.common.utils.PermissionUtils;
-import com.aliyun.svideo.common.utils.ToastUtils;
 import com.aliyun.svideo.editor.EditorMediaActivity;
 import com.aliyun.svideo.editor.bean.AlivcEditInputParam;
 import com.aliyun.svideosdk.common.struct.common.VideoDisplayMode;
@@ -36,11 +34,11 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
 
 
     /**
-     *  判断是编辑模块进入还是通过社区模块的编辑功能进入
+     * 判断是编辑模块进入还是通过社区模块的编辑功能进入
      */
     private static final String INTENT_PARAM_KEY_ENTRANCE = "entrance";
     /**
-     *  intent 是否添加了片尾水印的key
+     * intent 是否添加了片尾水印的key
      */
     private static final String INTENT_PARAM_KEY_HAS_TAIL_ANIMATION = "hasTailAnimation";
 
@@ -118,9 +116,9 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
 
 
     /**
-     *  判断是编辑模块进入还是通过社区模块的编辑功能进入
-     *  svideo: 短视频
-     *  community: 社区
+     * 判断是编辑模块进入还是通过社区模块的编辑功能进入
+     * svideo: 短视频
+     * community: 社区
      */
     private String entrance;
 
@@ -198,19 +196,11 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
     }
 
 
-
     @Override
     public void onClick(View v) {
         if (v == mStartImport) {
             if (FastClickUtil.isFastClick()) {
                 return;
-            }
-            //判断是否有权限，如果没有则不会打开MediaActivity
-            boolean externalStorage = PermissionUtils.checkPermissionsGroup(this,
-                                      PermissionUtils.PERMISSION_STORAGE);
-            if (!externalStorage) {
-                ToastUtils.show(this, R.string.alivc_common_no_read_external_storage_permission);
-                return ;
             }
 
             String inputFrame = mFrameRateEdit.getText().toString();
@@ -234,28 +224,28 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
             }
 
             AlivcEditInputParam param = new AlivcEditInputParam.Builder()
-            .setRatio(mRatio)//视频比例
-            .setScaleMode(scaleMode)//裁剪模式
-            .setVideoQuality(videoQuality)//视频质量
-            .setResolutionMode(mResolutionMode)//裁剪分辨率
-            .setHasTailAnimation(mHasTailAnimation)//是否添加片尾水印
-            .setFrameRate(frameRate)//裁剪帧率
-            .setGop(gop)//关键帧间隔
-            .setVideoCodec(mVideoCodec)
-            .build();
+                    .setRatio(mRatio)//视频比例
+                    .setScaleMode(scaleMode)//裁剪模式
+                    .setVideoQuality(videoQuality)//视频质量
+                    .setResolutionMode(mResolutionMode)//裁剪分辨率
+                    .setHasTailAnimation(mHasTailAnimation)//是否添加片尾水印
+                    .setFrameRate(frameRate)//裁剪帧率
+                    .setGop(gop)//关键帧间隔
+                    .setVideoCodec(mVideoCodec)
+                    .build();
             EditorMediaActivity.startImport(this, param);
             //AlicvEditorRoute.startMediaActivity(this,param);
 
         } else if (v == back) {
             finish();
-        } else if (v == mRadioCrop || v == mRadioFill ) {
+        } else if (v == mRadioCrop || v == mRadioFill) {
             onScaleModeSelected(v);
         } else if (v == mQualityHighBtn || v == mQualityLowBtn || v == mQualitySuperBtn || v == mQualityNormalBtn) {
             onQualitySelected(v);
         } else if (v == mRecordRatio1P1Btn || v == mRecordRatio3P4Btn || v == mRecordRatio9P16Btn || v == mRecordRatioOriginalBtn) {
             onRatioSelected(v);
         } else if (v == mRecordResolutionP360Btn || v == mRecordResolutionP480Btn || mRecordResolutionP540Btn == v
-                   || v == mRecordResolutionP720Btn) {
+                || v == mRecordResolutionP720Btn) {
             onResolutionSelected(v);
         } else if (v == mEncorderFfmpegBtn || v == mEncorderHardwareBtn || v == mEncorderOpenh264Btn) {
             onEncoderSelected(v);
@@ -324,6 +314,7 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
 
     /**
      * 选择视频分辨率
+     *
      * @param view 选择的分辨率button
      */
     private void onResolutionSelected(View view) {
@@ -375,6 +366,7 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
 
     /**
      * 填充模式选择
+     *
      * @param view 选择的button
      */
     private void onScaleModeSelected(View view) {

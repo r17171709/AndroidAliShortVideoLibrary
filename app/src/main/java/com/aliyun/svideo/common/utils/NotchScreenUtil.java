@@ -2,6 +2,7 @@ package com.aliyun.svideo.common.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,11 +13,11 @@ import java.lang.reflect.Method;
 
 /**
  * notch screen (刘海屏) 检测utils
- * 适配了华为、oppo、小米、vivo
+ *
+ * @author xlx
  */
 public class NotchScreenUtil {
-
-    private static final String TAG = NotchScreenUtil.class.getName();
+    private static final String TAG = "NotchScreenUtil...";
 
     /**
      *  设置应用窗口在华为notch手机使用刘海区的flag值, 该值为华为官方提供, 不要修改
@@ -212,7 +213,6 @@ public class NotchScreenUtil {
             Log.e(TAG, "other Exception");
         }
     }
-
     /**
      * 华为提供: 设置应用窗口在华为刘海屏手机不使用刘海区
      *
@@ -243,5 +243,21 @@ public class NotchScreenUtil {
         } catch (Exception e) {
             Log.e(TAG, "other Exception");
         }
+    }
+
+    /**
+     * 获取传音CF8手机刘海和虚拟按键的总高度
+     *
+     * @return px
+     */
+    public static int getTECNOCF8NotchAndNaviHeight() {
+
+        int height = 0;
+        if (Build.MODEL.toUpperCase().contains("TECNO CF8")) {
+            //传音技术反馈这款手机的刘海是自定义的，不能通过反射得到高度
+            //只能通过界面自己计算出来刘海和虚拟底部的总高度
+            height = 72;
+        }
+        return height;
     }
 }

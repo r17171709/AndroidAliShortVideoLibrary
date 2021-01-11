@@ -19,7 +19,7 @@ import com.aliyun.svideo.editor.bean.AlivcEditOutputParam;
 import com.aliyun.svideo.editor.publish.PublishActivity;
 import com.aliyun.svideo.editor.view.AlivcEditView;
 import com.aliyun.svideo.media.MediaInfo;
-import com.aliyun.svideo.music.utils.NotchScreenUtil;
+import com.aliyun.svideo.common.utils.NotchScreenUtil;
 import com.aliyun.svideosdk.common.struct.common.AliyunImageClip;
 import com.aliyun.svideosdk.common.struct.common.AliyunVideoClip;
 import com.aliyun.svideosdk.common.struct.common.AliyunVideoParam;
