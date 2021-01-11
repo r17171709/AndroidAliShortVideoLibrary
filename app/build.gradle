@@ -15,6 +15,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -37,7 +39,6 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -46,6 +47,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // 添加支持multidex的兼容包
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.aliyun.video.android:svideopro:3.18.0'//短视频专业版SDK必须依赖
     implementation 'com.aliyun.video.android:core:1.2.2' //核心库必须依赖
@@ -60,4 +63,9 @@ dependencies {
     implementation 'com.liulishuo.filedownloader:library:1.4.1'
     implementation group: 'org.apache.ant', name: 'ant', version: '1.7.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    // 基础库
+    implementation 'com.github.renyu:AndroidCommonLibrary:3.2.2'
+    // 图片库
+    implementation 'com.github.renyu:AndroidImageLibrary:3.5.2'
 }
