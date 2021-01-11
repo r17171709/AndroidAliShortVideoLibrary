@@ -20,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aliyun.svideo.base.AlivcSvideoEditParam;
-import com.aliyun.svideo.base.utils.FastClickUtil;
 import com.aliyun.svideo.editor.EditorMediaActivity;
 import com.aliyun.svideo.editor.bean.AlivcEditInputParam;
 import com.aliyun.svideosdk.common.struct.common.VideoDisplayMode;
@@ -199,10 +198,6 @@ public class AlivcEditorSettingActivity extends Activity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == mStartImport) {
-            if (FastClickUtil.isFastClick()) {
-                return;
-            }
-
             String inputFrame = mFrameRateEdit.getText().toString();
             int frameRate = DEFAULT_FRAME_RATE;
             if (!TextUtils.isEmpty(inputFrame)) {

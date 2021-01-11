@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,14 +16,17 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aliyun.svideo.base.EffectParamsAdjustView;
 import com.aliyun.svideo.base.Form.ResourceForm;
 import com.aliyun.svideo.base.http.EffectService;
-import com.aliyun.svideo.base.utils.FastClickUtil;
 import com.aliyun.svideo.common.utils.DensityUtils;
 import com.aliyun.svideo.downloader.DownloaderManager;
 import com.aliyun.svideo.downloader.FileDownloaderModel;
-import com.renyu.androidalishortvideolibrary.R;
 import com.aliyun.svideo.editor.effectmanager.MoreAnimationEffectActivity;
 import com.aliyun.svideo.editor.effects.CategoryAdapter;
 import com.aliyun.svideo.editor.effects.control.BaseChooser;
@@ -47,13 +46,14 @@ import com.aliyun.svideo.editor.util.EditorCommon;
 import com.aliyun.svideosdk.common.struct.effect.EffectConfig;
 import com.aliyun.svideosdk.common.struct.effect.EffectFilter;
 import com.aliyun.svideosdk.common.struct.effect.ValueTypeEnum;
+import com.renyu.androidalishortvideolibrary.R;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimationFilterChooserView extends BaseChooser
-    implements OnItemClickListener, OnItemTouchListener, View.OnClickListener {
+        implements OnItemClickListener, OnItemTouchListener, View.OnClickListener {
     private RecyclerView mListView;
     private FrameLayout mFlThumblinebar;
     private EffectAdapter mFilterAdapter;
@@ -77,13 +77,13 @@ public class AnimationFilterChooserView extends BaseChooser
 
         if (isFirstShow) {
             View contentView = LayoutInflater.from(getContext()).inflate(R.layout.alivc_editor_view_tip_first_show, null, false);
-            PopupWindow window = new PopupWindow( contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            PopupWindow window = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             window.setContentView(contentView);
             window.setOutsideTouchable(true);
             // 设置PopupWindow的背景
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             int yoff = 0 - getContext().getResources().getDimensionPixelSize(R.dimen.alivc_editor_size_effect_list_view) - DensityUtils
-                       .dip2px(getContext(), 25 );
+                    .dip2px(getContext(), 25);
             int xoff = DensityUtils.dip2px(getContext(), 5);
             window.showAsDropDown(mListView, xoff, yoff);
             isFirstShow = false;
@@ -112,46 +112,45 @@ public class AnimationFilterChooserView extends BaseChooser
         }
         return false;
     }
+
     @Override
     public void onTouchEvent(int motionEvent, int index, EffectInfo info) {
         switch (motionEvent) {
-        case OnItemTouchListener.EVENT_UP:
-            //先判断缩略图是否在被拖动状态，如果在被拖动状态则不能添加特效
-            if (mThumbLineBar != null && !mThumbLineBar.isTouching()) {
-                //添加特效结束时，恢复缩略图滑动事件
-                //setThumbScrollEnable(true);
-                setClickable(true);
-                Dispatcher.getInstance().postMsg(new LongClickUpAnimationFilter.Builder()
-                                                 .effectInfo(info)
-                                                 .index(index)
-                                                 .effectConfig(copyEffectConfig()).build());
-            }
-            break;
-        case OnItemTouchListener.EVENT_DOWN:
-            if (index > 0) {
+            case OnItemTouchListener.EVENT_UP:
                 //先判断缩略图是否在被拖动状态，如果在被拖动状态则不能添加特效
                 if (mThumbLineBar != null && !mThumbLineBar.isTouching()) {
-                    //添加特效开始时，关闭特效界面点击
-                    //setThumbScrollEnable(false);
-                    setClickable(false);
-                    info.streamStartTime = mPlayerListener.getCurrDuration();
-                    if (mCurrentEffect == null || !info.getPath().equals(mCurrentEffect.getPath())) {
-                        mCurrentEffect = new EffectFilter(info.getPath());
-                    }
-                    showEffectParamsUI(mCurrentEffect);
-                    Dispatcher.getInstance().postMsg(new LongClickAnimationFilter.Builder()
-                                                     .effectInfo(info)
-                                                     .index(index)
-                                                     .effectConfig(copyEffectConfig()).build());
+                    //添加特效结束时，恢复缩略图滑动事件
+                    //setThumbScrollEnable(true);
+                    setClickable(true);
+                    Dispatcher.getInstance().postMsg(new LongClickUpAnimationFilter.Builder()
+                            .effectInfo(info)
+                            .index(index)
+                            .effectConfig(copyEffectConfig()).build());
                 }
+                break;
+            case OnItemTouchListener.EVENT_DOWN:
+                if (index > 0) {
+                    //先判断缩略图是否在被拖动状态，如果在被拖动状态则不能添加特效
+                    if (mThumbLineBar != null && !mThumbLineBar.isTouching()) {
+                        //添加特效开始时，关闭特效界面点击
+                        //setThumbScrollEnable(false);
+                        setClickable(false);
+                        info.streamStartTime = mPlayerListener.getCurrDuration();
+                        if (mCurrentEffect == null || !info.getPath().equals(mCurrentEffect.getPath())) {
+                            mCurrentEffect = new EffectFilter(info.getPath());
+                        }
+                        showEffectParamsUI(mCurrentEffect);
+                        Dispatcher.getInstance().postMsg(new LongClickAnimationFilter.Builder()
+                                .effectInfo(info)
+                                .index(index)
+                                .effectConfig(copyEffectConfig()).build());
+                    }
 
 
-
-
-            }
-            break;
-        default:
-            break;
+                }
+                break;
+            default:
+                break;
         }
 
 
@@ -167,10 +166,6 @@ public class AnimationFilterChooserView extends BaseChooser
 
     @Override
     public void onClick(View v) {
-        if (FastClickUtil.isFastClick()) {
-            return;
-        }
-
         if (v == mComplete) {
             Dispatcher.getInstance().postMsg(new ConfirmAnimationFilter());
             if (mOnEffectActionLister != null) {
@@ -181,6 +176,7 @@ public class AnimationFilterChooserView extends BaseChooser
         }
 
     }
+
     @Override
     protected void init() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.alivc_editor_view_chooser_animation_filter, this);
@@ -236,6 +232,7 @@ public class AnimationFilterChooserView extends BaseChooser
 
     /**
      * 显示参数调节ui，目前只提供{@link ValueTypeEnum#INT, ValueTypeEnum#FLOAT}两种类型
+     *
      * @param ef EffectFilter
      */
     private boolean showEffectParamsUI(final EffectFilter ef) {
@@ -288,6 +285,7 @@ public class AnimationFilterChooserView extends BaseChooser
     public boolean isPlayerNeedZoom() {
         return true;
     }
+
     @Override
     protected FrameLayout getThumbContainer() {
         return mFlThumblinebar;
@@ -338,7 +336,7 @@ public class AnimationFilterChooserView extends BaseChooser
         form.setMore(true);
         mFilterList4Category.add(form);
         mCategoryAdapter.setData(mFilterList4Category);
-        if (ids.size() > 0 && (id == -1 || id == 0 || !ids.contains(id)) ) {
+        if (ids.size() > 0 && (id == -1 || id == 0 || !ids.contains(id))) {
             id = ids.get(0);
         }
         int categoryIndex = 0;

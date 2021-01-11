@@ -14,14 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyun.common.utils.ToastUtil;
 import com.aliyun.svideo.base.Constants;
-import com.aliyun.svideo.base.utils.VideoInfoUtils;
 import com.aliyun.svideo.common.utils.DateTimeUtils;
 import com.aliyun.svideo.common.utils.ThreadUtils;
 import com.aliyun.svideo.common.utils.UriUtils;
 import com.aliyun.svideosdk.common.AliyunErrorCode;
 import com.aliyun.svideosdk.editor.AliyunIComposeCallBack;
 import com.aliyun.svideosdk.editor.AliyunIVodCompose;
+import com.duanqu.transcode.NativeParser;
 import com.renyu.androidalishortvideolibrary.R;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by macpro on 2017/11/6.
@@ -114,8 +116,7 @@ public class PublishActivity extends AppCompatActivity {
                     mCompose = null;
                 }
             });
-
-            VideoInfoUtils.printVideoInfo(mOutputPath);
+            printVideoInfo(mOutputPath);
         }
     };
 
@@ -146,6 +147,35 @@ public class PublishActivity extends AppCompatActivity {
         if (mAsyncTaskResult != null) {
             mAsyncTaskResult.cancel(true);
             mAsyncTaskResult = null;
+        }
+    }
+
+    public static void printVideoInfo(String outputPath) {
+        NativeParser nativeParser = new NativeParser();
+        try {
+            nativeParser.init(outputPath);
+            LinkedHashMap<String, Object> infoMap = new LinkedHashMap<>();
+            int height = Integer.parseInt(nativeParser.getValue(NativeParser.VIDEO_HEIGHT));
+            int width = Integer.parseInt(nativeParser.getValue(NativeParser.VIDEO_WIDTH));
+            int gop = Integer.parseInt(nativeParser.getValue(NativeParser.VIDEO_GOP));
+            int frameCount = Integer.parseInt(nativeParser.getValue(NativeParser.VIDEO_FRAME_COUNT));
+            long videoDuration = Long.parseLong(nativeParser.getValue(NativeParser.VIDEO_DURATION));
+            long bitrate = Long.parseLong(nativeParser.getValue(NativeParser.VIDEO_BIT_RATE));
+            long audioDuration = Long.parseLong(nativeParser.getValue(NativeParser.AUDIO_DURATION));
+            infoMap.put("path", outputPath);
+            infoMap.put("width", width);
+            infoMap.put("height", height);
+            infoMap.put("videoDuration", videoDuration);
+            infoMap.put("audioDuration", audioDuration);
+            infoMap.put("gop", gop);
+            infoMap.put("frameRate", (float) frameCount / videoDuration * 1000 * 1000);
+            infoMap.put("bitrate", bitrate);
+            Log.i("printVideoInfo", infoMap.toString());
+        } catch (Exception ex) {
+            Log.e("printVideoInfo", ex.getMessage());
+        } finally {
+            nativeParser.release();
+            nativeParser.dispose();
         }
     }
 }

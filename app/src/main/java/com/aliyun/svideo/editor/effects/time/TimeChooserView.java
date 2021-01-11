@@ -3,8 +3,6 @@ package com.aliyun.svideo.editor.effects.time;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +12,15 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.aliyun.svideo.base.utils.FastClickUtil;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.aliyun.svideo.common.utils.DensityUtils;
-import com.renyu.androidalishortvideolibrary.R;
 import com.aliyun.svideo.editor.effects.control.BaseChooser;
 import com.aliyun.svideo.editor.effects.control.EffectInfo;
 import com.aliyun.svideo.editor.effects.control.UIEditorPage;
 import com.aliyun.svideosdk.editor.TimeEffectType;
+import com.renyu.androidalishortvideolibrary.R;
 
 public class TimeChooserView extends BaseChooser implements View.OnClickListener {
 
@@ -50,22 +50,22 @@ public class TimeChooserView extends BaseChooser implements View.OnClickListener
     protected void init() {
         mView = LayoutInflater.from(getContext()).inflate(R.layout.alivc_editor_view_chooser_time, null);
         addView(mView);
-        mTimeNone = (ImageView)findViewById(R.id.time_effect_none);
+        mTimeNone = (ImageView) findViewById(R.id.time_effect_none);
         mTimeNone.setOnClickListener(this);
-        mTimeSlow = (ImageView)findViewById(R.id.time_effect_slow);
+        mTimeSlow = (ImageView) findViewById(R.id.time_effect_slow);
         mTimeSlow.setOnClickListener(this);
-        mTimeFast = (ImageView)findViewById(R.id.time_effect_speed_up);
+        mTimeFast = (ImageView) findViewById(R.id.time_effect_speed_up);
         mTimeFast.setOnClickListener(this);
-        mTimeRepeat2Invert = (ImageView)findViewById(R.id.time_effect_repeat_invert);
+        mTimeRepeat2Invert = (ImageView) findViewById(R.id.time_effect_repeat_invert);
         mTimeRepeat2Invert.setOnClickListener(this);
         mTimeRepeat = findViewById(R.id.time_effect_repeat);
         mTimeRepeat.setOnClickListener(this);
         flThumblinebar = findViewById(R.id.fl_thumblinebar);
 
-        mCancel = (ImageView)findViewById(R.id.cancel);
-        mTvEffectTitle = (TextView)findViewById(R.id.tv_effect_title);
-        mIvEffectIcon = (ImageView)findViewById(R.id.iv_effect_icon);
-        mComplete = (ImageView)findViewById(R.id.complete);
+        mCancel = (ImageView) findViewById(R.id.cancel);
+        mTvEffectTitle = (TextView) findViewById(R.id.tv_effect_title);
+        mIvEffectIcon = (ImageView) findViewById(R.id.iv_effect_icon);
+        mComplete = (ImageView) findViewById(R.id.complete);
         mIvEffectIcon.setImageResource(R.mipmap.alivc_svideo_icon_effect_time);
         mTvEffectTitle.setText(R.string.alivc_editor_dialog_time_tittle);
         mComplete.setOnClickListener(new OnClickListener() {
@@ -106,37 +106,37 @@ public class TimeChooserView extends BaseChooser implements View.OnClickListener
         if (mEditorService != null) {
             resetBtn();
             switch (mEditorService.getLastTimeEffectInfo().timeEffectType) {
-            case TIME_EFFECT_TYPE_NONE:
-                mTimeNone.setSelected(true);
-                break;
-            case TIME_EFFECT_TYPE_INVERT:
-                mTimeRepeat2Invert.setSelected(true);
-                break;
-            case TIME_EFFECT_TYPE_RATE:
-                if (mEditorService.getLastTimeEffectInfo().timeParam > 1) {
-                    mTimeFast.setSelected(true);
-                } else {
-                    mTimeSlow.setSelected(true);
-                }
-                break;
-            case TIME_EFFECT_TYPE_REPEAT:
-                mTimeRepeat.setSelected(true);
-                break;
-            default:
-                mTimeNone.setSelected(true);
-                break;
+                case TIME_EFFECT_TYPE_NONE:
+                    mTimeNone.setSelected(true);
+                    break;
+                case TIME_EFFECT_TYPE_INVERT:
+                    mTimeRepeat2Invert.setSelected(true);
+                    break;
+                case TIME_EFFECT_TYPE_RATE:
+                    if (mEditorService.getLastTimeEffectInfo().timeParam > 1) {
+                        mTimeFast.setSelected(true);
+                    } else {
+                        mTimeSlow.setSelected(true);
+                    }
+                    break;
+                case TIME_EFFECT_TYPE_REPEAT:
+                    mTimeRepeat.setSelected(true);
+                    break;
+                default:
+                    mTimeNone.setSelected(true);
+                    break;
             }
         }
         if (isFirstShow) {
             View contentView = LayoutInflater.from(getContext()).inflate(R.layout.alivc_editor_view_tip_first_show, null, false);
-            TextView textView  = contentView.findViewById(R.id.alivc_svideo_tip_first);
+            TextView textView = contentView.findViewById(R.id.alivc_svideo_tip_first);
             textView.setText(R.string.alivc_editor_dialog_time_tip_apply);
-            PopupWindow window = new PopupWindow( contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            PopupWindow window = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             window.setContentView(contentView);
             window.setOutsideTouchable(true);
             // 设置PopupWindow的背景
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            int yoff = - DensityUtils.dip2px(getContext(), 95 );
+            int yoff = -DensityUtils.dip2px(getContext(), 95);
             window.showAsDropDown(mTimeNone, 0, yoff);
             isFirstShow = false;
         }
@@ -147,9 +147,6 @@ public class TimeChooserView extends BaseChooser implements View.OnClickListener
     public void onClick(View v) {
         int id = v.getId();
         if (mThumbLineBar.isScrolling()) {
-            return;
-        }
-        if (FastClickUtil.isFastClick()) {
             return;
         }
         resetBtn();
