@@ -79,15 +79,6 @@
             android:name="com.aliyun.svideo.editor.publish.PublishActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.aliyun.svideo.editor.publish.CoverEditActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.aliyun.svideo.editor.publish.UploadActivity"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <service
             android:name="com.liulishuo.filedownloader.services.FileDownloadService"
