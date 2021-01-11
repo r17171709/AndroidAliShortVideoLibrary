@@ -2,17 +2,10 @@ package com.aliyun.svideo.base.widget.beauty.face;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.aliyun.svideo.base.CopyrightWebActivity;
 import com.aliyun.svideo.base.widget.beauty.BeautyConstants;
 import com.aliyun.svideo.base.widget.beauty.BeautyDetailSettingView;
 import com.aliyun.svideo.base.widget.beauty.BeautyParams;
@@ -283,31 +275,6 @@ public class AlivcBeautyFaceSettingView extends FrameLayout {
     public void setOnBeautyDetailClickListener(
             OnBeautyDetailClickListener onBeautyDetailClickListener) {
         this.onBeautyDetailClickListener = onBeautyDetailClickListener;
-    }
-
-    /**
-     * 获取跳转到版权页面的字符串
-     *
-     * @return
-     */
-    private SpannableString getClickableSpan() {
-        String copyright = getContext().getResources().getString(R.string.alivc_base_beauty_copyright);
-        String copyrightLink = getContext().getResources().getString(R.string.alivc_base_beauty_copyright_link);
-        final int start = copyright.length();
-        int end = copyright.length() + copyrightLink.length();
-        SpannableString spannableString = new SpannableString(copyright + copyrightLink);
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
-                getContext().startActivity(intent);
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(
-                new ForegroundColorSpan(getContext().getResources().getColor(R.color.alivc_svideo_bg_balloon_tip_cyan)), start,
-                end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
     }
 
     public void setBeautyMode(BeautyMode beautyMode, boolean isBeautyFace) {

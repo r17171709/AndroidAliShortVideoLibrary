@@ -1,23 +1,12 @@
 package com.aliyun.svideo.music.music;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,12 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aliyun.common.utils.ToastUtil;
-import com.aliyun.svideo.base.CopyrightWebActivity;
 import com.aliyun.svideo.base.http.MusicFileBean;
 import com.aliyun.svideo.downloader.FileDownloaderCallback;
-import com.renyu.androidalishortvideolibrary.R;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.renyu.androidalishortvideolibrary.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -203,8 +195,6 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
         mAliyunLocalMusic.setOnClickListener(this);
         mAliyunMusicRecyclerView = findViewById(R.id.aliyun_music_list);
         mAlivcMusicCopyrightTV = findViewById(R.id.alivc_music_copyright);
-        mAlivcMusicCopyrightTV.setText(getClickalbeSpan());
-        mAlivcMusicCopyrightTV.setMovementMethod(LinkMovementMethod.getInstance());
         setFocusable(true);
 
         mAliyunMusicRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -216,7 +206,7 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
                 @Override
                 public void onSeekStop(long start) {
                     mPlayHandler.removeCallbacks(mMusciRunnable);
-                    mStartTime = (int)start;
+                    mStartTime = (int) start;
                     mPlayHandler.postDelayed(mMusciRunnable, 0);
                 }
 
@@ -251,8 +241,8 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
                                 super.onProgress(downloadId, soFarBytes, totalBytes, speed, progress);
                                 if (!isLocalMusic) {
                                     mMusicAdapter.updateProcess(
-                                        (MusicAdapter.MusicViewHolder) mAliyunMusicRecyclerView
-                                        .findViewHolderForAdapterPosition(position), progress, position);
+                                            (MusicAdapter.MusicViewHolder) mAliyunMusicRecyclerView
+                                                    .findViewHolderForAdapterPosition(position), progress, position);
                                 }
                             }
 
@@ -270,8 +260,8 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
 
                                 }
                                 mMusicAdapter.notifyDownloadingComplete((MusicAdapter.MusicViewHolder)
-                                                                        mAliyunMusicRecyclerView
-                                                                        .findViewHolderForAdapterPosition(position), effectBody, position);
+                                        mAliyunMusicRecyclerView
+                                                .findViewHolderForAdapterPosition(position), effectBody, position);
 
                             }
 
@@ -312,7 +302,7 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
     private void onMusicSelected(MusicFileBean musicFileBean, int position) {
 
 
-        if (mCachePosition != position ) {
+        if (mCachePosition != position) {
             //恢复时，不能重置
             mStartTime = 0;
         } else {
@@ -510,27 +500,4 @@ public class MusicChooseView extends LinearLayout implements View.OnClickListene
         }
         isVisible = visibleStatus;
     }
-
-    /**
-     * 获取跳转到版权页面的字符串
-     * @return
-     */
-    private SpannableString getClickalbeSpan() {
-        String copyright = getContext().getResources().getString(R.string.alivc_music_copyright);
-        String copyrightLink = getContext().getResources().getString(R.string.alivc_music_copyright_link);
-        final int start = copyright.length();
-        int end = copyright.length() + copyrightLink.length();
-        SpannableString spannableString = new SpannableString(copyright + copyrightLink);
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
-                getContext().startActivity(intent);
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.alivc_common_cyan_light)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
-    }
-
 }

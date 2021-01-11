@@ -38,10 +38,6 @@
         <activity
             android:name=".AlivcEditorSettingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.aliyun.svideo.base.CopyrightWebActivity" />
-        <activity
-            android:name="com.aliyun.svideo.base.ui.SdkVersionActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.aliyun.svideo.editor.editor.EditorActivity"
             android:launchMode="singleTask"

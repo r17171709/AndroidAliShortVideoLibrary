@@ -1,25 +1,16 @@
 package com.aliyun.svideo.base.widget.beauty.skin;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.aliyun.svideo.base.CopyrightWebActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.aliyun.svideo.base.widget.beauty.BeautyDetailSettingView;
 import com.aliyun.svideo.base.widget.beauty.BeautyParams;
 import com.aliyun.svideo.base.widget.beauty.enums.BeautyMode;
@@ -53,7 +44,6 @@ public class AlivcBeautySkinSettingView extends FrameLayout {
      * 微调按钮点击
      */
     private OnBeautyDetailClickListener onBeautyDetailClickListener;
-
 
 
     public AlivcBeautySkinSettingView(Context context, boolean isShowTab, BeautyMode beautyMode) {
@@ -101,21 +91,7 @@ public class AlivcBeautySkinSettingView extends FrameLayout {
                 }
             }
         });
-        initCopyRight();
     }
-
-    private void initCopyRight() {
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("svideo",
-                                              Activity.MODE_PRIVATE);
-        boolean isRaceMode = sharedPreferences.getBoolean("is_race_mode", false);
-        if (isRaceMode) {
-            String copyright = getContext().getResources().getString(R.string.alivc_base_beauty_race_copyright);
-            tvCopyright.setText(copyright);
-        } else {
-            tvCopyright.setText(getClickableSpan());
-        }
-    }
-
 
     public void setParams(BeautyParams params) {
         mParams = params;
@@ -132,6 +108,7 @@ public class AlivcBeautySkinSettingView extends FrameLayout {
 
     /**
      * 设置当前dialog中tab的下标
+     *
      * @param tabIndex
      */
     public void updateTabIndex(int tabIndex) {
@@ -148,29 +125,8 @@ public class AlivcBeautySkinSettingView extends FrameLayout {
 
 
     public void setOnBeautyDetailClickListener(
-        OnBeautyDetailClickListener onBeautyDetailClickListener) {
+            OnBeautyDetailClickListener onBeautyDetailClickListener) {
         this.onBeautyDetailClickListener = onBeautyDetailClickListener;
-    }
-    /**
-     * 获取跳转到版权页面的字符串
-     * @return
-     */
-    private SpannableString getClickableSpan() {
-        String copyright = getContext().getResources().getString(R.string.alivc_base_beauty_copyright);
-        String copyrightLink = getContext().getResources().getString(R.string.alivc_base_beauty_copyright_link);
-        final int start = copyright.length();
-        int end = copyright.length() + copyrightLink.length();
-        SpannableString spannableString = new SpannableString(copyright + copyrightLink);
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
-                getContext().startActivity(intent);
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        spannableString.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.alivc_svideo_bg_balloon_tip_cyan)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
     }
 
     public void setBeautyMode(BeautyMode beautyMode, boolean isBeautyFace) {

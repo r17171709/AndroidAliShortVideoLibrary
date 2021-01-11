@@ -1,18 +1,6 @@
 package com.aliyun.svideo.base.widget.beauty.face;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.aliyun.svideo.base.CopyrightWebActivity;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.aliyun.svideo.base.widget.AlivcPopupView;
 import com.aliyun.svideo.base.widget.beauty.enums.BeautyLevel;
 import com.aliyun.svideo.base.widget.beauty.enums.BeautyMode;
@@ -83,32 +73,32 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
     private void advancedCheck(int position) {
         int advanceId;
         switch (position) {
-        case 0:
-            advanceId = R.id.beauty_advanced_0;
-            break;
-        case 1:
-            advanceId = R.id.beauty_advanced_1;
-            break;
+            case 0:
+                advanceId = R.id.beauty_advanced_0;
+                break;
+            case 1:
+                advanceId = R.id.beauty_advanced_1;
+                break;
 
-        case 2:
-            advanceId = R.id.beauty_advanced_2;
-            break;
+            case 2:
+                advanceId = R.id.beauty_advanced_2;
+                break;
 
-        case 3:
-            advanceId = R.id.beauty_advanced_3;
-            break;
+            case 3:
+                advanceId = R.id.beauty_advanced_3;
+                break;
 
-        case 4:
-            advanceId = R.id.beauty_advanced_4;
-            break;
+            case 4:
+                advanceId = R.id.beauty_advanced_4;
+                break;
 
-        case 5:
-            advanceId = R.id.beauty_advanced_5;
-            break;
+            case 5:
+                advanceId = R.id.beauty_advanced_5;
+                break;
 
-        default:
-            advanceId = R.id.beauty_advanced_3;
-            break;
+            default:
+                advanceId = R.id.beauty_advanced_3;
+                break;
         }
         mRgAdvancedGroup.check(advanceId);
     }
@@ -116,32 +106,32 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
     private void normalCheck(int position) {
         int normalId;
         switch (position) {
-        case 0:
-            normalId = R.id.beauty0;
-            break;
-        case 1:
-            normalId = R.id.beauty1;
-            break;
+            case 0:
+                normalId = R.id.beauty0;
+                break;
+            case 1:
+                normalId = R.id.beauty1;
+                break;
 
-        case 2:
-            normalId = R.id.beauty2;
-            break;
+            case 2:
+                normalId = R.id.beauty2;
+                break;
 
-        case 3:
-            normalId = R.id.beauty3;
-            break;
+            case 3:
+                normalId = R.id.beauty3;
+                break;
 
-        case 4:
-            normalId = R.id.beauty4;
-            break;
+            case 4:
+                normalId = R.id.beauty4;
+                break;
 
-        case 5:
-            normalId = R.id.beauty5;
-            break;
+            case 5:
+                normalId = R.id.beauty5;
+                break;
 
-        default:
-            normalId = R.id.beauty3;
-            break;
+            default:
+                normalId = R.id.beauty3;
+                break;
         }
         mRgNormalGroup.check(normalId);
     }
@@ -153,7 +143,7 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
         mRgAdvancedGroup = findViewById(R.id.beauty_advanced_group);
         mBtBeautyDetail = findViewById(R.id.iv_beauty_detail);
 
-        alivcPopupView  = new AlivcPopupView(mContext);
+        alivcPopupView = new AlivcPopupView(mContext);
         TextView textView = new TextView(getContext());
         textView.setLayoutParams(new FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 
@@ -190,7 +180,6 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
             }
         });
         mTvCopyright = findViewById(R.id.tv_def_copyright);
-        initCopyRight(mTvCopyright);
     }
 
     /**
@@ -235,6 +224,7 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
             beautyLevel = BeautyLevel.BEAUTY_LEVEL_FIVE;
         }
     }
+
     /**
      * 详情按钮点击监听
      */
@@ -282,19 +272,6 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
         mTvCopyright.setVisibility(INVISIBLE);
     }
 
-    private void initCopyRight(TextView tvCopyright) {
-        tvCopyright.setVisibility(VISIBLE);
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("svideo",
-                                              Activity.MODE_PRIVATE);
-        boolean isRaceMode = sharedPreferences.getBoolean("is_race_mode", false);
-        if (isRaceMode) {
-            String copyright = getContext().getResources().getString(R.string.alivc_base_beauty_race_copyright);
-            tvCopyright.setText(copyright);
-        } else {
-            tvCopyright.setText(getClickableSpan());
-        }
-    }
-
     public void setBeautyMode(BeautyMode beautyMode, boolean isBeautyFace) {
         this.beautyMode = beautyMode;
         if (beautyMode == BeautyMode.Normal) {
@@ -310,27 +287,5 @@ public class BeautyDefaultFaceSettingView extends LinearLayout {
             mRgNormalGroup.setVisibility(GONE);
             mRgAdvancedGroup.setVisibility(VISIBLE);
         }
-    }
-
-    /**
-     * 获取跳转到版权页面的字符串
-     * @return
-     */
-    private SpannableString getClickableSpan() {
-        String copyright = getContext().getResources().getString(R.string.alivc_base_beauty_copyright);
-        String copyrightLink = getContext().getResources().getString(R.string.alivc_base_beauty_copyright_link);
-        final int start = copyright.length();
-        int end = copyright.length() + copyrightLink.length();
-        SpannableString spannableString = new SpannableString(copyright + copyrightLink);
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(getContext(), CopyrightWebActivity.class);
-                getContext().startActivity(intent);
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
-        spannableString.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.alivc_svideo_bg_balloon_tip_cyan)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
     }
 }
